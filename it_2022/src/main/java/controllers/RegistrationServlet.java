@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -45,15 +46,22 @@ public class RegistrationServlet extends HttpServlet {
 			password==null || password.isEmpty() ||
 			!password.equals(repeatPassword)) {
 			
-			out.print("<html><body><p>Не сте въвели всички полета!</p></body></html>");
+			out.print("<p>Не сте въвели всички полета!</p>");
+			RequestDispatcher rd = request.getRequestDispatcher("/RegistrationForm.jsp");
+			rd.include(request, response);
 		} 
 		else {
 			User user = new User(personalName,username,password);
 			if(collection.addUser(user)) {
-				out.print("<html><body><p>Успешно регистриран потребител!</p></body></html>");
+				out.print("<p>Успешно регистриран потребител!</p>");
+				
+				response.sendRedirect("login");
+				
 			}
 			else {
 				out.print("<html><body><p>Потребителското име е заето!</p></body></html>");
+				RequestDispatcher rd = request.getRequestDispatcher("/RegistrationForm.jsp");
+				rd.include(request, response);
 			}
 		}
 
