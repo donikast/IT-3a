@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletConfig;
@@ -9,13 +10,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.User;
+import repositories.Repository;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	Repository collection;
+	
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
+		collection = Repository.getInstance();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,6 +34,28 @@ public class RegistrationServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String repeatPassword = request.getParameter("repeat-password");
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		
+		
+		if(personalName==null || personalName.isEmpty() ||
+			username==null || username.isEmpty() ||	
+			password==null || password.isEmpty() ||
+			!password.equals(repeatPassword)) {
+			
+			out.print("<html><body><p>Не сте въвели всички полета!</p></body></html>");
+		} 
+		else {
+			User user = new User(personalName,username,password);
+			if(collection.addUser(user)) {
+				out.print("<html><body><p>Успешно регистриран потребител!</p></body></html>");
+			}
+			else {
+				out.print("<html><body><p>Потребителското име е заето!</p></body></html>");
+			}
+		}
 
 		
 	}
