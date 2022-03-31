@@ -23,5 +23,9 @@ public class Repository {
 	public boolean addUser(User user) {
 		return collection.add(user);
 	}
+	
+	public boolean ifExist(User user) {
+		return collection.contains(user);
+	}
 
 }

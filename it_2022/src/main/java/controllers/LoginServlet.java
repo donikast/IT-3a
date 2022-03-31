@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.Servlet;
@@ -10,14 +11,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.User;
+import repositories.Repository;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
- 
+ Repository collection;
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
+		collection=Repository.getInstance();
 	}
 
  
@@ -28,8 +31,25 @@ public class LoginServlet extends HttpServlet {
 
  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+ 
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		User user = new User(username,password);
+		
+		if(collection.ifExist(user)) {
+			RequestDispatcher rd = request.getRequestDispatcher("/ProfilePage.jsp");
+			rd.forward(request, response);
+		}
+		else {
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			out.print("<p>Невалидно име или парола!</p>");
+			RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
+			rd.include(request, response);
+		}
+		
 	}
 
 }
