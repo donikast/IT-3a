@@ -52,7 +52,8 @@ public class RegistrationServlet extends HttpServlet {
 		} 
 		else {
 			User user = new User(personalName,username,password);
-			if(collection.addUser(user)) {
+			if(collection.getUserByUserName(username)==null) {
+				collection.addUser(user);
 				out.print("<p>Успешно регистриран потребител!</p>");
 				
 				response.sendRedirect("login");
@@ -64,7 +65,5 @@ public class RegistrationServlet extends HttpServlet {
 				rd.include(request, response);
 			}
 		}
-
-		
 	}
 }

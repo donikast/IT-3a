@@ -27,5 +27,14 @@ public class Repository {
 	public boolean ifExist(User user) {
 		return collection.contains(user);
 	}
+	
+	public User getUserByUserName(String username) {
+		for(User u:collection) {
+			if(u.getUsername().equals(username)) {
+				return u;
+			}
+		}
+		return null;
+	}
 
 }
