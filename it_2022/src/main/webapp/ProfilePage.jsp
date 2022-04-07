@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="model.User" %>
+<%@ page import="model.Skill" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +11,9 @@
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+<% User user = (User)request.getAttribute("loggedUser"); %>
+
 	<header></header>
 	<div class="content">
 		<div>
@@ -16,8 +22,8 @@
 			</div>
 			<div class="profile-info-container">
 				<h2>Профилна информация</h2>
-				<p>Име: Иван Иванов Иванов</p>
-				<p>Професия: студент</p>
+				<p>Име: <%= user.getPersonalName() %></p>
+				<p>Професия: <%= user.getJobTitle() %></p>
 				<p>Описание: Известен факт е, че читателят обръща внимание на
 					съдържанието, което чете, а не на оформлението му. Свойството на
 					Lorem Ipsum е, че в голяма степен има нормално разпределение на
@@ -30,35 +36,16 @@
 
 		<div class="skills-container">
 			<div class="skills-container-element">
+						<% for(Skill skill:user.getProfSkills()) { %>
+				
 				<div>
-					<label>Java</label>
+					<label><%= skill.getSkillName() %></label>
 					<div class="outer-progress">
-						<div class="inner-progress" style="width: 20%"></div>
+						<div class="inner-progress" style="width: <%= skill.getSkillValue() %>%"></div>
 					</div>
 				</div>
-
-				<div>
-					<label>HTML</label>
-					<div class="outer-progress">
-						<div class="inner-progress" style="width: 20%"></div>
-					</div>
-				</div>
-
-				<div>
-					<label>CSS</label>
-					<div class="outer-progress">
-						<div class="inner-progress" style="width: 20%"></div>
-					</div>
-				</div>
-
-				<div>
-					<label>JavaScript</label>
-					<div class="outer-progress">
-						<div class="inner-progress" style="width: 20%"></div>
-					</div>
-				</div>
-
-
+				<% } %>
+ 
 			</div>
 
 			<div class="skills-container-element">
@@ -111,7 +98,7 @@
 
 				<div>
 					<label>Улица</label>
-					 <p class="profile-info-in-orange">Студентска 1</p>				 
+					 <p class="profile-info-in-orange"><%= user.getAddress().getStreet() %></p>				 
 				</div>			
 			</div>
 		</div>
