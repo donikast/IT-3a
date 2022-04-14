@@ -8,23 +8,21 @@
 <jsp:include page="shared/head.jsp"/>
 
 <body>
-<!--  
-<jsp:useBean id="loggedUser" class="model.User" scope="request"/>
-<jsp:setProperty property="personalName" name="loggedUser" />
-<jsp:getProperty property="personalName" name="loggedUser" />-->
 
 <% User user = (User)request.getAttribute("loggedUser"); %>
 
 	<jsp:include page="shared/header.jsp"/>
 
 	<div class="content">
+	<form action="user" method="post">
 		<div>
 			<div class="profile-image-container">
 				<img src="images/male.svg" />
 			</div>
 			<div class="profile-info-container">
 				<h2>Профилна информация</h2>
-				<p>Име:  <%= user.getPersonalName() %></p>
+				<p>Име: </p>
+				<input type="text" name="personal-name" value="<%= user.getPersonalName() %>"/>
 				<p>Професия: <%= user.getJobTitle() %></p>
 				<p>Описание: <%= user.getDescription() %></p>
 
@@ -87,6 +85,7 @@
 					 <p class="profile-info-in-orange"><%= user.getAddress().getStreet() %></p>				 
 				</div>			
 			</div>
+			</form>
 		</div>
 	</div>
 	<jsp:include page="shared/footer.jsp"/>
