@@ -42,8 +42,10 @@ public class LoginServlet extends HttpServlet {
 			User loggedUser = collection.getUserByUserName(username);
 			
 			request.setAttribute("loggedUser", loggedUser);
-			RequestDispatcher rd = request.getRequestDispatcher("/EditProfilePage.jsp");
-			rd.forward(request, response);
+			
+			response.sendRedirect("user?id="+loggedUser.getId()+"&action=edit");
+			//RequestDispatcher rd = request.getRequestDispatcher("/EditProfilePage.jsp");
+			//rd.forward(request, response);
 		}
 		else {
 			response.setCharacterEncoding("UTF-8");
