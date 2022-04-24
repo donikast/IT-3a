@@ -28,7 +28,8 @@ public class RegistrationServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 
+		RequestDispatcher rd = request.getRequestDispatcher("/RegistrationForm.jsp");
+		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

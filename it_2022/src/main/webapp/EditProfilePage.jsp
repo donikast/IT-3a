@@ -9,7 +9,7 @@
 
 <body>
 
-<% User user = (User)request.getAttribute("loggedUser"); %>
+<% User user = (User)session.getAttribute("loggedUser"); %>
 
 	<jsp:include page="shared/header.jsp"/>
 
@@ -89,6 +89,7 @@
 					 <input type="text" name="street" value="<%= user.getAddress().getStreet() %>"/>			 
 				</div>			
 			</div>
+			<div><input type="submit" value="Редактирай" /></div>
 			</form>
 		</div>
 	</div>
