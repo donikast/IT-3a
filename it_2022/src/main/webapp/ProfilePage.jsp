@@ -18,6 +18,13 @@
 	<jsp:include page="shared/header.jsp"/>
 
 	<div class="content">
+	<% if(request.getAttribute("message")==null) { %>
+	
+	<h2>Добре дошли!</h2>
+	<form action="cookie" method="post">
+	<input type="submit" value="Изключи" />
+	</form>
+	<% } %>
 		<div>
 			<div class="profile-image-container">
 				<img src="images/male.svg" />

@@ -6,6 +6,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,6 +29,17 @@ public class UserServlet extends HttpServlet {
 		
 		User loggedUser = collection.getUserById(id);
 		request.setAttribute("loggedUser", loggedUser);
+		
+		
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null) {
+			for(Cookie c:cookies) {
+				if(c.getName().equals("message")) {
+					request.setAttribute("message", "message");
+				}
+			}
+		}
+		
 		
 		if(action!=null && !action.isEmpty() && action.equals("edit")) {
 		RequestDispatcher rd = request.getRequestDispatcher("/EditProfilePage.jsp");
