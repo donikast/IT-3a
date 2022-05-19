@@ -44,5 +44,29 @@
   	<description></description>
   	<servlet-class>controllers.CookieServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ErrorServlet</servlet-name>
+  	<display-name>ErrorServlet</display-name>
+  	<description></description>
+  	<servlet-class>controllers.ErrorServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AsyncUpdateServlet</servlet-name>
+  	<display-name>AsyncUpdateServlet</display-name>
+  	<description></description>
+  	<servlet-class>controllers.AsyncUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AsyncUpdateServlet</servlet-name>
+  	<url-pattern>/AsyncUpdateServlet</url-pattern>
+  </servlet-mapping>
  
+ <error-page>
+ <error-code>404</error-code>
+ <location>/error</location>
+ </error-page>
+  <error-page>
+ <error-code>500</error-code>
+ <location>/error</location>
+ </error-page>
 </web-app>
